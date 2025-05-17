@@ -52,7 +52,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, computed, onMounted } from "vue";
-import useProductsStore from "@/utils/api/products";
+import useProductsStore from "@/services/product";
 
 const productStore = useProductsStore();
 const searchTerm = ref("");

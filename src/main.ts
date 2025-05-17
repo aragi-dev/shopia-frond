@@ -3,8 +3,8 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
-import useAuthStore from "@/utils/api/auth";
-import api from "@/utils/api/balseApi";
+import useAuthStore from "@/services/auth";
+import api from "@/api/shopiaApi";
 
 const app = createApp(App);
 const pinia = createPinia()

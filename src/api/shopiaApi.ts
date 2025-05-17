@@ -1,5 +1,5 @@
 import axios from "axios";
-import useAuthStore from "@/utils/api/auth";
+import useAuthStore from "@/services/auth";
 
 const balseApi = axios.create({
   baseURL: import.meta.env.VITE_API_URL,

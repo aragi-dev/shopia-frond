@@ -59,7 +59,7 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 // import Icon from "@/components/Icon.vue";
-import useAuthStore from "@/utils/api/auth";
+import useAuthStore from "@/services/auth";
 
 const username = ref("");
 const password = ref("");

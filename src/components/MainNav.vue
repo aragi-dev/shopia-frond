@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Icon from "@/components/Icon.vue";
 import { useRouter } from "vue-router";
-import useAuthStore from "@/utils/api/auth";
+import useAuthStore from "@/services/auth";
 
 const router = useRouter();
 const auth = useAuthStore();

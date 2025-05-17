@@ -2,7 +2,7 @@
 import Nav from "@/components/MainNav.vue";
 import { onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import useAuthStore from "@/utils/api/auth";
+import useAuthStore from "@/services/auth";
 
 const router = useRouter();
 const auth = useAuthStore();

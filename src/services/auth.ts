@@ -1,11 +1,6 @@
 import { defineStore } from "pinia";
-import api from "@/utils/api/balseApi";
-
-export interface User {
-  id: string;
-  name: string;
-  role: string;
-}
+import api from "@/api/shopiaApi";
+import type User from "@/type/iUser";
 
 const useAuthStore = defineStore("auth", {
   state: () => ({
