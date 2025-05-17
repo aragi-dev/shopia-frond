@@ -1,12 +1,12 @@
 import axios from "axios";
-import useAuthStore from "@/stores/auth";
+import useAuthStore from "@/utils/api/auth";
 
-const api = axios.create({
-  baseURL: "http://localhost:3000/dev",
+const balseApi = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
   headers: { "Content-Type": "application/json" },
 });
 
-api.interceptors.request.use(
+balseApi.interceptors.request.use(
   (config) => {
     const auth = useAuthStore();
     if (auth.token) {
@@ -18,4 +18,4 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-export default api;
+export default balseApi;

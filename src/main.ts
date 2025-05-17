@@ -1,11 +1,10 @@
 import "./assets/main.css";
-
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
-import useAuthStore from "@/stores/auth";
-import api from "@/services/api";
+import useAuthStore from "@/utils/api/auth";
+import api from "@/utils/api/balseApi";
 
 const app = createApp(App);
 const pinia = createPinia()

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import api from "@/services/api";
+import api from "@/utils/api/balseApi";
 
 export interface Products {
   id: string;
@@ -18,7 +18,7 @@ const useProductsStore = defineStore("products", {
   state: () => ({ products: [] as Products[] }),
   actions: {
     async fetchProducts() {
-      const { data } = await api.get("/products");
+      const { data } = await api.get("products");
       this.products = data.data;
     },
   },

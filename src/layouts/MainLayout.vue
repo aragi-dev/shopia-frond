@@ -2,21 +2,19 @@
 import Nav from "@/components/MainNav.vue";
 import { onMounted, onBeforeUnmount } from "vue";
 import { useRouter } from "vue-router";
-import useAuthStore from "@/stores/auth";
+import useAuthStore from "@/utils/api/auth";
 
 const router = useRouter();
 const auth = useAuthStore();
 
-const INACTIVITY_LIMIT = 60 * 1; // 1 hora
-// 2. Estado de última actividad
+const INACTIVITY_LIMIT = 60 * 60;
+
 let lastActivity = Date.now();
 
-// 3. Función para resetear el contador
 function resetActivity() {
   lastActivity = Date.now();
 }
 
-// 4. Función para chequear inactividad
 function checkInactivity() {
   const secondsIdle = (Date.now() - lastActivity) / 1000;
   if (secondsIdle > INACTIVITY_LIMIT && auth.isAuthenticated) {
@@ -26,15 +24,12 @@ function checkInactivity() {
 }
 
 onMounted(() => {
-  // Escuchamos los eventos que consideremos “actividad”
   window.addEventListener("click", resetActivity);
   window.addEventListener("keydown", resetActivity);
   window.addEventListener("mousemove", resetActivity);
 
-  // Chequeamos cada minuto
   const intervalId = setInterval(checkInactivity, 60 * 1000);
 
-  // Limpiamos al desmontar
   onBeforeUnmount(() => {
     window.removeEventListener("click", resetActivity);
     window.removeEventListener("keydown", resetActivity);

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import api from "@/services/api";
+import api from "@/utils/api/balseApi";
 
 export interface User {
   id: string;
@@ -14,10 +14,13 @@ const useAuthStore = defineStore("auth", {
   }),
   getters: {
     isAuthenticated: (state) => !!state.token,
+    isAdmin: (state) => state.user?.role === "admin",
+    isSeller: (state) => state.user?.role === "seller",
+    userRole: (state) => state.user?.role || null,
   },
   actions: {
     async login(email: string, password: string) {
-      const { data } = await api.post("/login", { email, password });
+      const { data } = await api.post("login", { email, password });
       const { token, user } = data.data;
       this.token = token;
       this.user = user;

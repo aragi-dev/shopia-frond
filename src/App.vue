@@ -1,8 +1,8 @@
 <template>
-  <div v-html="sprite" style="display:none" aria-hidden="true"></div>
+  <div v-html="icons" style="display:none" aria-hidden="true"></div>
   <router-view />
 </template>
 
 <script setup lang="ts">
-import sprite from "./assets/sprite.svg?raw";
+import icons from "./assets/icons.svg?raw";
 </script>

@@ -8,7 +8,7 @@ const NotFound = () => import("@/views/NotFoundView.vue");
 // Views
 const Home = () => import("@/views/HomeView.vue");
 const Products = () => import("@/views/ProductsView.vue");
-const Test2 = () => import("@/views/TestView2.vue");
+const SeleView = () => import("@/views/SeleView.vue");
 
 const routerOptions: RouteRecordRaw[] = [
   {
@@ -23,24 +23,27 @@ const routerOptions: RouteRecordRaw[] = [
         meta: {
           title: "Home",
           requiresAuth: true,
+          roles: ["admin", "seller"],
         },
       },
       {
-        path: "test",
-        name: "Test",
+        path: "products",
+        name: "Products",
         component: Products,
-        meta: { 
-          title: "Test 1",
+        meta: {
+          title: "Products",
           requiresAuth: true,
+          roles: ["admin"],
         },
       },
       {
-        path: "test2",
-        name: "Test2",
-        component: Test2,
-        meta: { 
-          title: "Test 2",
+        path: "sele",
+        name: "Sele",
+        component: SeleView,
+        meta: {
+          title: "Sele",
           requiresAuth: true,
+          roles: ["admin", "seller"],
         },
       },
     ],
@@ -52,7 +55,7 @@ const routerOptions: RouteRecordRaw[] = [
     meta: { title: "Login" },
   },
   {
-    path: "/:pathMatch(.*)",
+    path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: NotFound,
     meta: { title: "Not Found" },
