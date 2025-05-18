@@ -1,62 +1,121 @@
 <template>
-  <section class="text-center grid p-4 gap-4">
-    <input
-      type="text"
-      id="search"
-      placeholder="Buscar Producto..."
-      name="search"
-      class="py-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500 mx-auto"
-    />
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div
-        v-for="product in filteredProducts"
-        :key="product.id"
-        class="bg-zinc-800 text-amber-50 p-4 rounded-md shadow-md hover:shadow-lg transition-shadow duration-300"
-      >
-        <h2 class="text-xl font-bold">{{ product.name }}</h2>
-        <p class="text-sm">{{ product.description }}</p>
-        <p class="mt-2">Precio: ${{ product.price }}</p>
-        <p>Stock: {{ product.stock }}</p>
+  <main class="text-center grid p-4 gap-4">
+    <section class="grid gap-4 grid-flow-col w-full">
+      <input type="text" id="search" placeholder="Buscar Producto..." name="search"
+        class="py-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500 ml-auto" />
+      <button @click="isOpen = true"
+        class="mr-auto rounded-md hover:scale-125 transform transition duration-200 ease-in-out">
+        <Icon name="add" size="34" css="fill-green-500" />
+      </button>
+    </section>
+    <section class="flex flex-wrap justify-center gap-4 w-full">
+      <div v-for="product in filteredProducts" :key="product.id"
+        class="relative p-4 grid gap-4 rounded-2xl text-white w-50 h-60 mx-auto">
+        <img src="/producto.png" alt="Producto"
+          class="absolute inset-0 w-50 h-60 object-cover rounded-2xl opacity-60" />
+        <button class="ml-auto mb-auto mt-0 mr-0 z-0">
+          <Icon name="options" css="fill-white" />
+        </button>
+        <div class="grid z-10">
+          <h1 class="text-xl font-bold mb-auto z-20">{{ product.name }}</h1>
+          <div class="grid grid-flow-col gap-2">
+            <span class="text-zinc-200 mt-auto z-20">${{ product.price }}</span>
+            <span class="text-zinc-200 mt-auto z-20">Stock: {{ product.stock }}</span>
+          </div>
+        </div>
       </div>
-      <p v-if="!filteredProducts.length" class="col-span-full text-center text-zinc-400">No se encontraron productos.</p>
-    </div>
-  <div class="relative p-4 grid gap-4 rounded-xl overflow-hidden text-white w-50 h-60">
-    <img
-      src="https://user-images.githubusercontent.com/2805249/64069899-8bdaa180-cc97-11e9-9b19-1a9e1a254c18.png"
-      alt=""
-      class="absolute inset-0 w-50 h-60 object-cover opacity-40 z-0 border"
-    />
-    <button class="z-10 ml-auto mb-auto mt-0 mr-0">...</button>
-    <h1 class="z-10 text-xl font-bold mt-auto mr-auto mb-0">name</h1>
-    <span class="z-10 text-zinc-200">description is long</span>
-    <span class="z-10 mb-0 mt-auto ml-auto mr-0 h-4">20</span>
-  </div>
-  </section>
-      <div class="flex-shrink-0 m-6 relative overflow-hidden rounded-lg max-w-xs shadow-lg">
-        <svg class="absolute bottom-0 left-0 mb-8" viewBox="0 0 375 283" fill="none"
-            style="transform: scale(1.5); opacity: 0.1;">
-            <rect x="159.52" y="175" width="152" height="152" rx="8" transform="rotate(-45 159.52 175)" fill="white" />
-            <rect y="107.48" width="152" height="152" rx="8" transform="rotate(-45 0 107.48)" fill="white" />
-        </svg>
-        <div class="relative pt-10 px-10 flex items-center justify-center">
-            <img class="absolute w-40 h-40 object-cover" src="https://user-images.githubusercontent.com/2805249/64069899-8bdaa180-cc97-11e9-9b19-1a9e1a254c18.png" alt="">
+    </section>
+  </main>
+  <Modal :show="isOpen" title="Agregar Producto" @close="isOpen = false">
+    <form @submit.prevent="addProduct" class="grid gap-4 max-w-96">
+      <div class="grid grid-flow-col gap-4">
+        <div class="grid gap-1">
+          <label for="name" class="text-gray-400 ml-1">Nombre</label>
+          <input type="text" v-model.trim="name" name="name"
+            class="py-2 px-4 border-1 border-zinc-700 text-gray-400 rounded-md bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full" />
         </div>
-        <div class="relative text-white px-6 pb-6 mt-6">
-            <span class="block opacity-75 -mb-1">Indoor</span>
-            <div class="flex justify-between">
-                <span class="block font-semibold text-xl">Peace Lily</span>
-                <span class="bg-white rounded-full text-orange-500 text-xs font-bold px-3 py-2 leading-none flex items-center">$36.00</span>
-            </div>
+        <div class="grid gap-1">
+          <label for="code" class="text-gray-400 ml-1">Code</label>
+          <input type="text" v-model.trim="code" name="code"
+            class="py-2 px-4 border-1 border-zinc-700 text-gray-400 rounded-md bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full" />
         </div>
-    </div>
+      </div>
+      <div class="grid grid-flow-col gap-4">
+        <div class="grid gap-1">
+          <label for="price" class="text-gray-400 ml-1">Precio Venta</label>
+          <input type="number" name="price" v-model.number="price" min="0"
+            class="py-2 px-4 border-1 border-zinc-700 text-gray-400 rounded-md bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full" />
+        </div>
+        <div class="grid gap-1">
+          <label for="cost" class="text-gray-400 ml-1">Precio Compra</label>
+          <input type="number" name="cost" v-model.number="cost"
+            class="py-2 px-4 border-1 border-zinc-700 text-gray-400 rounded-md bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full" />
+        </div>
+        <div class="grid gap-1">
+          <label for="stock" class="text-gray-400 ml-1">Cantidad</label>
+          <input type="number" name="stock" v-model.number="stock"
+            class="py-2 px-4 border-1 border-zinc-700 text-gray-400 rounded-md bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full" />
+        </div>
+      </div>
+      <textarea id="description" rows="4"
+        class="p-4 border-1 border-zinc-700 text-gray-400 rounded-md bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full"
+        placeholder="Descripcion del producto" />
+      <button type="submit" :disabled="!isFormValid"
+        class="text-gray-400 p-2 rounded-md outline outline-zinc-700 bg-blue-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20">
+        Confirmar
+      </button>
+    </form>
+  </Modal>
 </template>
 <script lang="ts" setup>
 import { ref, computed, onMounted } from "vue";
 import useProductsStore from "@/services/product";
+import Icon from "@/components/Icon.vue";
+import Modal from "@/components/Modal.vue";
 
 const productStore = useProductsStore();
 const searchTerm = ref("");
+const isOpen = ref(false);
 
+const name = ref("");
+const code = ref("");
+const price = ref(0);
+const cost = ref(0);
+const stock = ref(0);
+const description = ref("");
+
+const resetForm = () => {
+  name.value = "";
+  code.value = "";
+  price.value = 0;
+  cost.value = 0;
+  stock.value = 0;
+  description.value = "";
+};
+
+const isFormValid = computed(() => name.value.trim() && code.value && price.value > 0 && cost.value > 0 && stock.value > 0);
+
+const addProduct = async () => {
+  if (!isFormValid.value) {
+    alert("Por favor completa todos los campos correctamente.");
+    return;
+  }
+  try {
+    await productStore.addProduct({
+      name: name.value,
+      code: code.value,
+      price: price.value,
+      cost: cost.value,
+      stock: stock.value,
+      description: description.value,
+    });
+    resetForm();
+    isOpen.value = false;
+  } catch (error) {
+    console.error(error);
+    alert("Error al agregar producto");
+  }
+};
 onMounted(async () => {
   await productStore.fetchProducts();
 });
