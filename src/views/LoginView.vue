@@ -3,31 +3,15 @@
     <h1 class="text-4xl text-zinc-500 font-bold mx-auto">Login</h1>
     <div class="grid mb-auto">
       <form @submit.prevent="login" class="grid gap-4">
-        <input
-          v-model="username"
-          type="text"
-          id="user"
-          placeholder="Usuario"
-          name="username"
-          autocomplete="username"
+        <input v-model="username" type="text" id="user" placeholder="Usuario" name="username" autocomplete="username"
           class="p-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500"
-          required
-        />
-        <input
-          v-model="password"
-          type="password"
-          id="password"
-          placeholder="Contrasenia"
-          name="password"
+          required />
+        <input v-model="password" type="password" id="password" placeholder="Contrasenia" name="password"
           autocomplete="current-password"
           class="p-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500"
-          required
-        />
-        <button
-          type="submit"
-          :disabled="!isFormValid"
-          class="text-gray-400 p-2 rounded-md outline outline-zinc-700 bg-blue-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20 focus:scale-110"
-        >
+          required />
+        <button type="submit" :disabled="!isFormValid"
+          class="text-gray-400 p-2 rounded-md outline outline-zinc-700 bg-blue-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20 focus:scale-110">
           Confirmar
         </button>
       </form>
@@ -37,19 +21,19 @@
           placeholder="Google"
           class="border-1 border-zinc-600 text-white p-2 rounded-md transition-transform hover:scale-110 active:scale-95 focus:outline-none focus:scale-110"
         >
-          <Icon name="google" size="24" color="fill-zinc-500" />
+          <Icon name="google" size="24" css="fill-zinc-500" />
         </button>
         <button
           placeholder="Facebook"
           class="border-1 border-zinc-600 text-white p-2 rounded-md transition-transform hover:scale-110 active:scale-95 focus:outline-none focus:scale-110"
         >
-          <Icon name="facebook" size="24" color="fill-zinc-500" />
+          <Icon name="facebook" size="24" css="fill-zinc-500" />
         </button>
         <button
           placeholder="Github"
           class="border-1 border-zinc-600 text-white p-2 rounded-md transition-transform hover:scale-110 active:scale-95 focus:outline-none focus:scale-110"
         >
-          <Icon name="github" size="24" color="fill-zinc-500" />
+          <Icon name="github" size="24" css="fill-zinc-500" />
         </button>
       </section> -->
     </div>

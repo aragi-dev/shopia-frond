@@ -1,5 +1,5 @@
 <template>
-  <svg :width="size" :height="size" :class="color" aria-hidden="true">
+  <svg :width="size" :height="size" :class="css" aria-hidden="true">
     <use :href="`#${name}`" />
   </svg>
 </template>
@@ -8,6 +8,6 @@
 defineProps({
   name: { type: String, required: true },
   size: { type: [Number, String], default: 24 },
-  color: { type: String, default: 'currentColor' }
-})
+  css: { type: String, default: "currentColor" },
+});
 </script>

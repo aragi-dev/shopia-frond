@@ -31,3 +31,5 @@ bun dev
 ```sh
 bun run build
 ```
+
+https://fontawesome.com/search?ic=free

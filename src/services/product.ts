@@ -9,6 +9,10 @@ const useProductsStore = defineStore("products", {
       const { data } = await api.get("products");
       this.products = data.data;
     },
+    async addProduct(product: Products) {
+      const { data } = await api.post("product", product);
+      this.products.push(data.data);
+    }
   },
 });
 

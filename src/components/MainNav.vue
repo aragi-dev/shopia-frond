@@ -24,17 +24,17 @@ const isSeller = auth.isSeller;
     </section>
     <section class="grid grid-flow-col m-auto p-2 rounded-xl shadow-sm shadow-black">
       <router-link  v-if="isAdmin || isSeller" to="/home" class="py-2 px-3 rounded-lg transition-transform hover:cursor-pointer hover:scale-125">
-        <Icon name="home" size="24" color="fill-zinc-500" />
+        <Icon name="home" size="24" css="fill-zinc-500" />
       </router-link>
       <router-link  v-if="isAdmin" to="/products" class="py-2 px-3 rounded-lg transition-transform hover:cursor-pointer hover:scale-125">
-        <Icon name="inventory" size="24" color="fill-zinc-500" />
+        <Icon name="inventory" size="24" css="fill-zinc-500" />
       </router-link>
       <router-link v-if="isAdmin || isSeller" to="/sele" class="py-2 px-3 rounded-lg transition-transform hover:cursor-pointer hover:scale-110">
-        <Icon name="shopCart" size="24" color="fill-zinc-500" />
+        <Icon name="shop" size="24" css="fill-zinc-500" />
       </router-link>
     </section>
     <section>
-      <Icon @click="logout" name="logut" size="24" color="fill-zinc-500 transition-color hover:cursor-pointer hover:scale-125 hover:fill-red-400" />
+      <Icon @click="logout" name="logut" size="24" css="fill-zinc-500 transition-color hover:cursor-pointer hover:scale-125 hover:fill-red-400" />
     </section>
   </nav>
 </template>
