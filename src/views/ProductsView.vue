@@ -1,37 +1,20 @@
 <template>
   <main class="text-center grid p-4 gap-4">
     <section class="grid gap-4 grid-flow-col w-full">
-      <input
-        type="text"
-        id="search"
-        placeholder="Buscar Producto..."
-        name="search"
-        v-model="searchTerm"
-        class="py-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500 ml-auto"
-      />
-      <button
-        @click="isOpen = true"
+      <input type="text" id="search" placeholder="Buscar Producto..." name="search" v-model="searchTerm"
+        class="py-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500 ml-auto" />
+      <button @click="isOpen = true"
         class="mr-auto rounded-md hover:scale-125 transform transition duration-200 ease-in-out"
-        aria-label="Agregar producto"
-      >
+        aria-label="Agregar producto">
         <Icon name="add" size="34" css="fill-green-500" />
       </button>
     </section>
     <section class="flex flex-wrap justify-center gap-4 w-full">
-      <div
-        v-for="product in filteredProducts"
-        :key="product.id"
-        class="relative p-4 grid gap-4 rounded-2xl text-white w-50 h-60 mx-auto"
-      >
-        <img
-          src="/producto.png"
-          alt="Producto"
-          class="absolute inset-0 w-50 h-60 object-cover rounded-2xl opacity-60"
-        />
-        <button
-          class="ml-auto mb-auto mt-0 mr-0 z-0"
-          aria-label="Opciones del producto"
-        >
+      <div v-for="product in filteredProducts" :key="product.id"
+        class="relative p-4 grid gap-4 rounded-2xl text-white w-50 h-60 mx-auto">
+        <img src="/producto.png" alt="Producto"
+          class="absolute inset-0 w-50 h-60 object-cover rounded-2xl opacity-60" />
+        <button class="ml-auto mb-auto mt-0 mr-0 z-0" aria-label="Opciones del producto">
           <Icon name="options" css="fill-white" />
         </button>
         <div class="grid z-10">
@@ -51,91 +34,37 @@
   <Modal :show="isOpen" title="Agregar Producto" @close="closeModal">
     <form @submit.prevent="addProduct" class="grid gap-4 max-w-96">
       <div class="grid grid-flow-col gap-4">
-        <BaseInput
-          label="Nombre"
-          name="name"
-          v-model="form.name"
-          :error="fieldState.name.error"
-          :touched="fieldState.name.touched"
-          @blur="() => markTouched('name')"
-        />
-        <BaseInput
-          label="Code"
-          name="code"
-          v-model="form.code"
-          :error="fieldState.code.error"
-          :touched="fieldState.code.touched"
-          @blur="() => markTouched('code')"
-        />
+        <BaseInput label="Nombre" name="name" v-model="form.name" :error="fieldState.name.error"
+          :touched="fieldState.name.touched" @blur="() => markTouched('name')" />
+        <BaseInput label="Code" name="code" v-model="form.code" :error="fieldState.code.error"
+          :touched="fieldState.code.touched" @blur="() => markTouched('code')" />
       </div>
       <div class="grid grid-flow-col gap-4">
-        <BaseInput
-          label="Precio Venta"
-          name="price"
-          type="number"
-          v-model="form.price"
-          :error="fieldState.price.error"
-          :touched="fieldState.price.touched"
-          @blur="() => markTouched('price')"
-          min="0"
-        />
-        <BaseInput
-          label="Precio Compra"
-          name="cost"
-          type="number"
-          v-model="form.cost"
-          :error="fieldState.cost.error"
-          :touched="fieldState.cost.touched"
-          @blur="() => markTouched('cost')"
-        />
-        <BaseInput
-          label="Cantidad"
-          name="stock"
-          type="number"
-          v-model="form.stock"
-          :error="fieldState.stock.error"
-          :touched="fieldState.stock.touched"
-          @blur="() => markTouched('stock')"
-        />
+        <BaseInput label="Precio Venta" name="price" type="number" v-model="form.price" :error="fieldState.price.error"
+          :touched="fieldState.price.touched" @blur="() => markTouched('price')" min="0" />
+        <BaseInput label="Precio Compra" name="cost" type="number" v-model="form.cost" :error="fieldState.cost.error"
+          :touched="fieldState.cost.touched" @blur="() => markTouched('cost')" />
+        <BaseInput label="Cantidad" name="stock" type="number" v-model="form.stock" :error="fieldState.stock.error"
+          :touched="fieldState.stock.touched" @blur="() => markTouched('stock')" />
       </div>
-      <textarea
-        v-model.trim="form.description"
-        id="description"
-        rows="4"
+      <textarea v-model.trim="form.description" id="description" rows="4"
         class="p-4 border-1 border-zinc-700 text-gray-400 rounded-2xl bg-zinc-800 focus:outline-none focus:border-zinc-500 w-full"
-        placeholder="Descripcion del producto"
-      />
+        placeholder="Descripcion del producto" />
       <div class="grid grid-flow-col grid-cols-12 gap-2">
-        <button
-          type="button"
-          @click="resetForm"
-          :disabled="!isFormDirty"
-          aria-label="Limpiar formulario"
-          class="p-2 rounded-2xl outline outline-zinc-700 bg-zinc-900 transition-all active:scale-90 flex w-full justify-center col-span-2 hover:bg-blue-900 cursor-pointer disabled:bg-zinc-900 disabled:opacity-20 disabled:cursor-not-allowed"
-        >
+        <button type="button" @click="resetForm" :disabled="!isFormDirty" aria-label="Limpiar formulario"
+          class="p-2 rounded-2xl outline outline-zinc-700 bg-zinc-900 transition-all active:scale-90 flex w-full justify-center col-span-2 hover:bg-blue-900 cursor-pointer disabled:bg-zinc-900 disabled:opacity-20 disabled:cursor-not-allowed">
           <Icon name="mop" size="24" css="fill-zinc-500" />
         </button>
-        <button
-          type="submit"
-          :disabled="!isFormValid || loading"
-          :class="[
-            'text-gray-400 p-2 rounded-2xl outline outline-zinc-700 bg-green-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20 col-span-10 w-full',
-            loading
-              ? 'cursor-wait animate-pulse'
-              : isFormValid
-                ? ''
-                : 'cursor-not-allowed',
-          ]"
-        >
-          <span
-            v-if="loading"
-            class="grid grid-flow-col text-center items-center gap-2"
-          >
-            <Icon
-              name="spinner"
-              size="20"
-              css="fill-zinc-500 animate-spin ml-auto"
-            />
+        <button type="submit" :disabled="!isFormValid || loading" :class="[
+          'text-gray-400 p-2 rounded-2xl outline outline-zinc-700 bg-green-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20 col-span-10 w-full',
+          loading
+            ? 'cursor-wait animate-pulse'
+            : isFormValid
+              ? ''
+              : 'cursor-not-allowed',
+        ]">
+          <span v-if="loading" class="grid grid-flow-col text-center items-center gap-2">
+            <Icon name="spinner" size="20" css="fill-zinc-500 animate-spin ml-auto" />
             <p class="mr-auto">Guardando...</p>
           </span>
           <span v-else>Confirmar</span>
@@ -143,12 +72,8 @@
       </div>
     </form>
   </Modal>
-  <Notification
-    :show="notification.show"
-    :type="notification.type"
-    :msg="notification.msg"
-    @close="notification.show = false"
-  />
+  <Notification :show="notification.show" :type="notification.type" :msg="notification.msg"
+    @close="notification.show = false" />
 </template>
 <script lang="ts" setup>
 import { ref, computed, onMounted, reactive } from "vue";
@@ -156,8 +81,8 @@ import useProductsStore from "@/services/product";
 import Icon from "@/components/Icon.vue";
 import Modal from "@/components/Modal.vue";
 import Notification from "@/components/Notification.vue";
-import { NotificationType } from "@/utils/enums/NotificationType";
 import BaseInput from "@/components/BaseInput.vue";
+import { NotificationType } from "@/utils/enums/NotificationType";
 
 const productStore = useProductsStore();
 const searchTerm = ref("");
