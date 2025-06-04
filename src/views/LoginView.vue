@@ -63,7 +63,7 @@ const login = async () => {
 </script>
 <style scoped>
 input:-webkit-autofill {
-  box-shadow: 0 0 0px 20px rgb(42, 52, 63) inset !important;
+  box-shadow: 0 0 0px 20px rgb(28, 34, 41) inset !important;
   -webkit-text-fill-color: #7f7f91 !important;
   border: 1px solid #ffffff !important;
 }
