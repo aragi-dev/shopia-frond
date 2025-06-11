@@ -23,6 +23,15 @@ const useAuthStore = defineStore("auth", {
       localStorage.setItem("user", JSON.stringify(user));
       return user;
     },
+    async register(email:string, password:string){
+      const { data } = await api.post("create", {email, password})
+      const { token, user } = data.data;
+      this.token = token;
+      this.user = user;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      return user;
+    },
     logout() {
       this.token = "";
       this.user = null;
