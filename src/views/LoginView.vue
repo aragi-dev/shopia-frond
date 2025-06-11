@@ -1,21 +1,37 @@
 <template>
   <main class="h-svh grid place-items-center">
-    <h1 class="text-4xl text-zinc-500 font-bold mx-auto">Login</h1>
+    <h1 class="text-4xl text-purple-700 font-bold mx-auto">Login</h1>
     <div class="grid mb-auto">
       <form @submit.prevent="login" class="grid gap-4">
-        <input v-model="username" type="text" id="user" placeholder="Usuario" name="username" autocomplete="username"
+        <input
+          v-model="username"
+          type="text"
+          id="user"
+          placeholder="Usuario"
+          name="username"
+          autocomplete="username"
           class="p-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500"
-          required />
-        <input v-model="password" type="password" id="password" placeholder="Contrasenia" name="password"
+          required
+        />
+        <input
+          v-model="password"
+          type="password"
+          id="password"
+          placeholder="Contrasenia"
+          name="password"
           autocomplete="current-password"
           class="p-2 px-4 border-1 border-zinc-700 text-zinc-400 rounded-md bg-zinc-900 focus:outline-none focus:border-zinc-500"
-          required />
-        <button type="submit" :disabled="!isFormValid"
-          class="text-gray-400 p-2 rounded-md outline outline-zinc-700 bg-blue-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20 focus:scale-110">
+          required
+        />
+        <button
+          type="submit"
+          :disabled="!isFormValid"
+          class="text-gray-400 p-2 rounded-md outline outline-zinc-700 bg-blue-900 transition-all active:scale-95 disabled:bg-zinc-900 disabled:opacity-20 focus:scale-110"
+        >
           Confirmar
         </button>
       </form>
-      <!-- <span class="text-zinc-400 font-bold mx-auto my-4">-o-</span>
+      <span class="text-zinc-400 font-bold mx-auto my-4">-o-</span>
       <section class="grid grid-flow-col gap-4 place-content-center">
         <button
           placeholder="Google"
@@ -35,25 +51,33 @@
         >
           <Icon name="github" size="24" css="fill-zinc-500" />
         </button>
-      </section> -->
+      </section>
+      <router-link
+        to="/home"
+        class="py-2 px-3 rounded-lg transition-transform hover:cursor-pointer hover:scale-125"
+      >
+        home
+      </router-link>
     </div>
   </main>
 </template>
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
-// import Icon from "@/components/Icon.vue";
+import Icon from "@/components/Icon.vue";
 import useAuthStore from "@/services/auth";
 
 const username = ref("");
 const password = ref("");
 const router = useRouter();
 const auth = useAuthStore();
-const isFormValid = computed(() => username.value.trim() && password.value.trim());
+const isFormValid = computed(
+  () => username.value.trim() && password.value.trim()
+);
 
 const login = async () => {
   try {
-    await auth.login(username.value, password.value);
+    await auth.register(username.value, password.value);
     router.push({ name: "Home" });
   } catch (error) {
     console.error(error);
