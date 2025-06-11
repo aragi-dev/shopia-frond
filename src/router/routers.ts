@@ -49,6 +49,12 @@ const routerOptions: RouteRecordRaw[] = [
     ],
   },
   {
+    path: "/register",
+    name: "Register",
+    component: Register,
+    meta: { title: "Register" },
+  },
+  {
     path: "/login",
     name: "Login",
     component: login,
