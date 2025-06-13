@@ -2,12 +2,12 @@
   <transition name="fade">
     <div
       v-if="show"
-      class="fixed top-5 right-5 z-50 px-4 py-3 rounded-xl bg-zinc-800 shadow-lg flex items-center gap-2"
+      class="fixed top-5 right-5 z-50 px-4 py-3 rounded-lg shadow-lg shadow-black flex items-center gap-2 outline"
       :class="{
-        'text-green-500 ': type === NotificationType.SUCCESS,
-        'text-red-500 ': type === NotificationType.ERROR,
-        'text-yellow-500 ': type === NotificationType.WARNING,
-        'text-blue-500 ': type === NotificationType.INFO,
+        'text-green-500 , outline-green-500': type === NotificationType.SUCCESS,
+        'text-red-500 , outline-red-500': type === NotificationType.ERROR,
+        'text-yellow-500 , outline-yellow-500': type === NotificationType.WARNING,
+        'text-blue-500 , outline-blue-500': type === NotificationType.INFO,
       }"
     >
       <span class="font-semibold">{{ msg }}</span>
