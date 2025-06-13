@@ -1,14 +1,11 @@
 <template>
-  <section>
-    <h1 class="text-3xl font-bold text-center mb-4 text-red-400">Faltantes</h1>
-    <!-- carrusel -->
-  </section>
-  <section>
-    <h1 class="text-3xl font-bold text-center mb-4 text-zinc-400">Nuevos</h1>
-    <!-- carrusel -->
-  </section>
-  <section>
-    <h1 class="text-3xl font-bold text-center mb-4 text-zinc-400">Destacados</h1>
-    <!-- carrusel -->
-  </section>
+  <main class="grid">
+    <div class="m-auto grid grid-flow-row gap-4 p-4">
+      <Icon name="pdf" css="fill-zinc-300"/>
+      <Icon name="exel" css="fill-zinc-300"/>
+    </div>
+  </main>
 </template>
+<script>
+import Icon from "@/components/Icon.vue";
+</script>
