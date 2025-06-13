@@ -14,14 +14,31 @@ const useAuthStore = defineStore("auth", {
     userRole: (state) => state.user?.role || null,
   },
   actions: {
-    async login(email: string, password: string) {
-      const { data } = await api.post("login", { email, password });
-      const { token, user } = data.data;
-      this.token = token;
-      this.user = user;
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      return user;
+    async login(request: Login) {
+      try {
+        const { data } = await api.post("login", {
+          code: request.code,
+        });
+        const { token, user } = data.data;
+        this.token = token;
+        this.user = user;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        return user;
+      } catch (error: any) {
+        if (
+          typeof error === "object" &&
+          error !== null &&
+          "message" in error
+        ) {
+          throw new Error(
+            "Verifica tu conexión a internet."
+          );
+        }
+        throw new Error(
+          error.response?.data?.message || "Error al iniciar sesión"
+        );
+      }
     },
     async register(email:string, password:string){
       const { data } = await api.post("create", {email, password})
